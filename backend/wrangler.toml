@@ -3,5 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2025-07-12"
 
 [vars]
-DATABASE_URL = ""
-JWT_SECRET = ""
+DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19CbnNaZXZMRWpRemhGeG9Fck5sTzkiLCJhcGlfa2V5IjoiMDFLMTVHTkNWMUQzWEVaRFI4WFpYOVdYN1kiLCJ0ZW5hbnRfaWQiOiI2MjMzODJiMmJkZDQzNTVhZTFmZjA5ZjgyMTA2NTNmNmNmMWZmMTI5MjdmMjE4YTA4ODAxYWMyMDM2ZWFhMzYyIiwiaW50ZXJuYWxfc2VjcmV0IjoiNTYzN2NjYWQtNGExNy00YTk4LTk4NjAtMDFjYzdkZDg1Njk0In0.LaFj0zWDmsdSz56ctdeOlfjxs8z1gVG_hQZiQTooJhY"
+JWT_SECRET = "secret"
+[observability.logs]
+enabled = true

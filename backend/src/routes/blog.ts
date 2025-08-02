@@ -17,10 +17,10 @@ export const blogRouter = new Hono<{
 // Middleware: Auth check for all routes
 blogRouter.use("/*", async (c, next) => {
   const authHeader = c.req.header("authorization") || "";
-  const token = authHeader.replace("Bearer ", "");
+  // const token = authHeader.replace("Bearer ", "");
 
   try {
-    const user = await verify(token, c.env.JWT_SECRET);
+    const user = await verify(authHeader, c.env.JWT_SECRET);
     if (!user || !user.id) 
         throw new Error("Invalid token ya user m dikkat h ");
     // @ts-ignore
@@ -52,7 +52,7 @@ blogRouter.post("/", async (c) => {
     data: {
       title: body.title,
       content: body.content,
-      authorId: Number(authorId), // Do NOT use Number() — it's a UUID (string)
+      authorId: Number(authorId), 
     },
   });
 
@@ -90,7 +90,18 @@ blogRouter.get("/bulk", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const blogs = await prisma.post.findMany();
+  const blogs = await prisma.post.findMany({
+    select:{
+      content:true,
+      title:true,
+      id:true,
+      author:{
+        select :{
+          name:true
+        }
+      }
+    }
+  });
 
   return c.json({ blogs });
 });
@@ -107,7 +118,17 @@ blogRouter.get("/:id", async (c) => {
     const blog = await prisma.post.findFirst({
       where: { 
         id:Number(id)
- },
+    },
+      select:{
+        id:true,
+        title: true,
+        content: true,
+        author:{
+          select:{
+            name:true
+          }
+        }
+      }
     });
 
     return c.json({ blog });
