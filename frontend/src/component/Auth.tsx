@@ -20,7 +20,7 @@ async function sendRequest(){
       navigate("/blogs");
     }catch(e){
         alert("Error while signin up");
-        // alert the user here that the request failed
+        // alert the user here that the request failed 
     }
 }
 
